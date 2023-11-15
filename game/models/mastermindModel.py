@@ -1,6 +1,6 @@
 class MasterMindModel:
-    def __init__(self):
-        pass
+    def __init__(self,code):
+        self.secretCode = code
 
     def checkGuess(self,guess):
         pass
