@@ -22,4 +22,8 @@ class MasterMindModel:
         
             
     def checkGuess(self,guess):
-        pass
+        result = []
+        for index,element in enumerate(guess):
+            result.append(self.secretCode[index] == element)
+        
+        return result

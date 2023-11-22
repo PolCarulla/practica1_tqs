@@ -43,4 +43,15 @@ class TestMasterMindModel(unittest.TestCase):
         
         
     def test_checkGuess(self):
-        pass
+        secret_code = ["Red", "Green", "Blue", "Yellow"]
+
+        invalid_guess = ["Yellow","Blue","Green","Red"]
+        valid_guess = ["Red", "Green", "Blue", "Yellow"]
+
+        mm = MasterMindModel(secret_code)
+        for element in mm.checkGuess(valid_guess):
+            self.assertTrue(element)
+        
+        for element in mm.checkGuess(invalid_guess):
+            self.assertFalse(element)
+        
