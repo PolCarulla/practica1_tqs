@@ -23,10 +23,15 @@ class MasterMindModel:
             
     def checkGuess(self,guess):
         result = []
+        if len(guess) != len(self.secretCode):
+            raise ValueError(f"Invalid lenght of guess code. Expected {len(self.secretCode)} and got {len(guess)}")
         for index,element in enumerate(guess):
             result.append(self.secretCode[index] == element)
         
         if all(result):
             self.gameEnded = True
-            
+        else:
+            self.turn += 1
+            if self.turn == self.MAX_TURN:
+                self.gameEnded = True
         return result

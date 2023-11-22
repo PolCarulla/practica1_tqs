@@ -75,4 +75,31 @@ class TestMasterMindModel(unittest.TestCase):
             self.assertTrue(element)
         
         self.assertTrue(mm.gameEnded)
+    
+    def test_checkGuess3(self):
+        ## Third version of checkGuess function
+        ## Every time a check is done the turn variable needs to be updated, unless the game ended.
+        ## Error control for incorrect lenghts
+        ## If turn equals MAX TURN it needs to set gameEnded to True
+        secret_code = ["Red", "Green", "Blue", "Yellow"]
+        invalid_guess = ["Yellow","Green","Blue","Red"]
+        invalid_lenght = ["Blue","Red","Yellow"]
+
+        mm = MasterMindModel(secret_code)
+
+        self.assertEqual(0,mm.turn)
+
+        mm.checkGuess(invalid_guess)
+
+        self.assertEqual(1,mm.turn)
+
+        with self.assertRaises(ValueError):
+            mm.checkGuess(invalid_lenght)
         
+        self.assertEqual(1,mm.turn)
+
+        mm.MAX_TURN = 2
+
+        mm.checkGuess(invalid_guess)
+        
+        self.assertTrue(mm.gameEnded)
