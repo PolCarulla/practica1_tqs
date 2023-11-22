@@ -26,4 +26,7 @@ class MasterMindModel:
         for index,element in enumerate(guess):
             result.append(self.secretCode[index] == element)
         
+        if all(result):
+            self.gameEnded = True
+            
         return result

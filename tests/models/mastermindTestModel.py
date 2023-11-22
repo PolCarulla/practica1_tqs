@@ -33,6 +33,7 @@ class TestMasterMindModel(unittest.TestCase):
         self.assertEqual(available_colors,mm.AVAILABLE_COLORS)
 
     def test_validateSecretCode(self):
+
         valid_secret_code = ["Red", "Green", "Blue", "Yellow"]
         invalid_secret_code = ["Red", "Cyan", "Blue", "Yellow"]
         
@@ -43,6 +44,8 @@ class TestMasterMindModel(unittest.TestCase):
         
         
     def test_checkGuess(self):
+        ## First version of checkGuess function
+        ## In this version it only checks if the guess values are correct
         secret_code = ["Red", "Green", "Blue", "Yellow"]
 
         invalid_guess = ["Yellow","Blue","Green","Red"]
@@ -54,4 +57,22 @@ class TestMasterMindModel(unittest.TestCase):
         
         for element in mm.checkGuess(invalid_guess):
             self.assertFalse(element)
+    
+    def test_checkGuess2(self):
+        ## Second version of checkGuess function
+        ## Added individual check for the values
+        ## gameEnded variable should change to True if the correct code is passed
+        secret_code = ["Red", "Green", "Blue", "Yellow"]
+        mm = MasterMindModel(secret_code)
+
+        invalid_guess2 = ["Yellow","Green","Blue","Red"]
+        result_invalid_guess2 = [False,True,True,False]
+        self.assertEqual(mm.checkGuess(invalid_guess2),result_invalid_guess2)
+        self.assertFalse(mm.gameEnded)
+
+        valid_guess = ["Red", "Green", "Blue", "Yellow"]
+        for element in mm.checkGuess(valid_guess):
+            self.assertTrue(element)
+        
+        self.assertTrue(mm.gameEnded)
         
