@@ -36,4 +36,12 @@ class MasterMindController:
                 raise KeyError(f"Unexpected input {user_input}")
 
     def runGame(self):
-        pass
+        result = None
+        while True:
+            self.view.displayBoard(self.model.turn,self.difficulty,result)
+            user_input = self.view.userInput()
+            if type(user_input) == list:
+                result = self.model.checkGuess(user_input)
+            elif type(user_input) == str:
+                if user_input == "exit":
+                    break

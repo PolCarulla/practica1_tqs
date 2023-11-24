@@ -56,8 +56,23 @@ class TestMasterMindController(unittest.TestCase):
         expected_argument3 = Difficulty.EASY
 
         mock_view.displayMenu.assert_has_calls([call(expected_argument1),call(expected_argument2),call(expected_argument3)])
-        
+
     def test_run_game(self):
-        pass
+        mock_view = Mock()
+        mc = MasterMindController()
+        secret_code = ["Blue","Yellow","Red","Orange"]
+        mm = MasterMindModel(secret_code)
+        mock_view.userInput.side_effect = [["Red","Green","Blue","Yellow"],"exit"]
+        mc.setView(mock_view)
+        mc.setModel(mm)
+        mc.runGame()
+        expected_calls = [
+            call(0, Difficulty.EASY, None),
+            call(1, Difficulty.EASY, [False,False,False,False]),
+            # Add more expected calls as needed
+        ]
+        mock_view.displayBoard.assert_has_calls(expected_calls)
+
+        
 
     
