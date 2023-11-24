@@ -10,7 +10,6 @@ class MasterMindController:
     model = None
     view = None
     difficulty = Difficulty.EASY
-
     def setView(self,view):
         self.view = view
     
@@ -25,6 +24,14 @@ class MasterMindController:
                 self.run_game()
             elif user_input == "exit":
                 break
+            elif user_input == "difficulty_up":
+                current_difficulty_index = list(Difficulty).index(self.difficulty)
+                next_difficulty_index = (current_difficulty_index + 1) % len(Difficulty)
+                self.difficulty = list(Difficulty)[next_difficulty_index]
+            elif user_input == "difficulty_down":
+                current_difficulty_index = list(Difficulty).index(self.difficulty)
+                next_difficulty_index = (current_difficulty_index - 1) % len(Difficulty)
+                self.difficulty = list(Difficulty)[next_difficulty_index]
             else:
                 raise KeyError(f"Unexpected input {user_input}")
 

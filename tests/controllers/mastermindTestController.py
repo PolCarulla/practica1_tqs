@@ -38,10 +38,25 @@ class TestMasterMindController(unittest.TestCase):
         mock_view.displayMenu.assert_has_calls([call(expected_arguments)])
         mock_view.userInput.assert_called_once()
 
-        mock_view.userInput.side_effect = ["aaaa",KeyError("Unexpected input aaaa")]
+        mock_view.userInput.return_value = "aaaa"
         with self.assertRaises(KeyError):
             mc.start_menu()
-    
+
+    def test_start_menu3(self):
+        ## Third version of start menu
+        ## Testing change difficulty feature
+        mock_view = Mock()
+        mock_view.userInput.side_effect = ["difficulty_up","difficulty_down","exit"]
+
+        mc = MasterMindController()
+        mc.setView(mock_view)
+        mc.start_menu()
+        expected_argument1 = Difficulty.EASY
+        expected_argument2 = Difficulty.MEDIUM
+        expected_argument3 = Difficulty.EASY
+
+        mock_view.displayMenu.assert_has_calls([call(expected_argument1),call(expected_argument2),call(expected_argument3)])
+        
     def test_run_game(self):
         pass
 
